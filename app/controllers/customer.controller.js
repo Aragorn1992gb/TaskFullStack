@@ -55,11 +55,48 @@ res.send(customers);
 
 const db = require('../../db');
 const validator = require('validator');
+const aes256 = require('aes256');
+const cryptoVar = require('crypto');
 
 const { 
     v1: uuidv1,
     v4: uuidv4,
   } = require('uuid');
+
+function aes256Encrypt(plaintext){
+    objAes = {
+        key: "",
+        encryptedPlainText: "",
+        encryptedBuffer: ""
+    };
+
+    objAes.key = cryptoVar.randomBytes(64).toString('base64');
+    var buffer = Buffer.from(plaintext);
+
+    var cipher = aes256.createCipher(objAes.key);
+
+    objAes.encryptedPlainText = cipher.encrypt(plaintext);
+
+    objAes.encryptedBuffer = cipher.encrypt(buffer);
+
+    return objAes;
+}
+
+function aes256Decrypt(key, encryptedPlainText, encryptedBuffer){
+    objAes = {
+        decryptedPlainText: "",
+        decryptedBuffer: ""
+    };
+
+    var cipher = aes256.createCipher(key);
+
+    objAes.decryptedPlainText = cipher.decrypt(encryptedPlainText);
+
+    objAes.decryptedBuffer = cipher.decrypt(encryptedBuffer);
+
+    return objAes;
+}
+
 
 exports.createTable = (req, res, next) => {
     let id = req.params.id; 
@@ -121,12 +158,18 @@ exports.getFileUUID = (req, res, next) => {
 
 
 exports.insertFile = (req, res, next) => {
-    db.query("INSERT INTO files VALUES('"+uuidv4()+"', '"+req.body.name+"', "+req.body.size+", '"+req.body.mime+"', '"+req.body.payload+"');", function(err, row){
-    // db.query("INSERT INTO files VALUES("+uuidv4()+", '"+req.body.name+"', "+req.body.size+", '"+req.body.mime+"', "+req.body.payload+");", function(err, row){
+    var encPayload = aes256Encrypt(req.body.payload);
+    var uuid = uuidv4();
+
+    db.query("INSERT INTO files VALUES('"+uuid+"', '"+req.body.name+"', "+req.body.size+", '"+req.body.mime+"', '"+encPayload.encryptedPlainText+"');", function(err, row){
         if(err){
             res.send('Query error: ' + err.sqlMessage);
         }else{
-            res.json(row.uuid);
+            var info = {
+                uuid: uuid,
+                key: encPayload.key
+            }
+            res.json(info);
         }
     });
 };

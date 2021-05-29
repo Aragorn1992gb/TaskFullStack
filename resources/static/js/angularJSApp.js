@@ -5,8 +5,6 @@ var app = angular.module('app', []);
 //#######################
  
 app.controller('jsaLoadCustomers', function($scope, $http, $location) {
-
-	
 	  
 	$scope.customers = [];
 	$scope.fileObj = {
@@ -14,7 +12,11 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location) {
 		size: 0,
 		mime: "",
 		payload: ""
-	}
+	};
+	$scope.fileInsertedInfo = {
+		uuid: "",
+		key: ""
+	};
 	
 	function getAllCustomers(){
 		var url = "api/customers/all";
@@ -38,10 +40,10 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location) {
 			data: $scope.fileObj
 		}).then(
 			function (response) {
-				var data = response.data;
+				$scope.fileInsertedInfo.uuid = response.data.uuid;
+				$scope.fileInsertedInfo.key = response.data.key;
 				console.log("SUCCESS"+response.data);
 			}, function (error) {
-				var data = error.data;
 				console.log("ERROR"+error.data);
 		});
 	};
