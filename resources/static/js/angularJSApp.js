@@ -17,6 +17,17 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location) {
 		uuid: "",
 		key: ""
 	};
+	$scope.paramsForDecrypt = {
+		uuid: "797ea13b-78d8-487b-99f7-8567b012476b",
+		key: "kUV2WSpKEPL0UDKTdD148i638hMOSllct68tP7+EQ0G7zNvhLaGaOSLeqsX4i2SdV1PSzt10kn78z7hMFMlaxA=="
+	};
+	$scope.decryptedFileObj = {
+		uuid: "",
+		fileName: "",
+		size: 0,
+		mime: "",
+		payload: ""
+	};
 	
 	function getAllCustomers(){
 		var url = "api/customers/all";
@@ -31,8 +42,6 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location) {
 	}
 
 	$scope.submitForm = function() {
-		console.log("cliccato",$scope.fileObj);
-
 		$http({
 			method: 'POST',
 			url: '/insert/',
@@ -46,6 +55,29 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location) {
 			}, function (error) {
 				console.log("ERROR"+error.data);
 		});
+	};
+
+	$scope.decryptFile = function() {
+		$http({
+			method: 'POST',
+			url: '/decrypt/',
+			headers: {'Content-Type': 'application/json'},
+			data: $scope.paramsForDecrypt
+		}).then(
+			function (response) {
+				$scope.decryptedFileObj = response.data;
+				console.log("SUCCESS"+response.data);
+			}, function (error) {
+				console.log("ERROR"+error.data);
+		});
+	};
+
+	$scope.downloadFile = function(uri, name) {
+		var a = document.createElement("a");
+		a.download = $scope.decryptedFileObj.fileName;
+		a.href = $scope.decryptedFileObj.payload;
+		a.click();
+		// window.location.href = 'data:'+$scope.decryptedFileObj.mime+'base64,' + $scope.decryptedFileObj.payload;
 	};
 
 	openFile = function(event) {
@@ -64,6 +96,7 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location) {
 		};
 		reader.readAsDataURL(input.files[0]);
 	  };
+
 	
 	getAllCustomers();
 });

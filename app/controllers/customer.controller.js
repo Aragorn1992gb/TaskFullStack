@@ -66,35 +66,35 @@ const {
 function aes256Encrypt(plaintext){
     objAes = {
         key: "",
-        encryptedPlainText: "",
-        encryptedBuffer: ""
+        encryptedPlainText: ""
     };
 
     objAes.key = cryptoVar.randomBytes(64).toString('base64');
-    var buffer = Buffer.from(plaintext);
 
     var cipher = aes256.createCipher(objAes.key);
 
     objAes.encryptedPlainText = cipher.encrypt(plaintext);
 
-    objAes.encryptedBuffer = cipher.encrypt(buffer);
+    console.log("PLAIN",plaintext);
+    console.log("ENCR",objAes.encryptedPlainText);
+
+    var decryptedPlainText = cipher.decrypt(objAes.encryptedPlainText);
+
+    console.log("decryptedPlainText",decryptedPlainText);    
 
     return objAes;
 }
 
-function aes256Decrypt(key, encryptedPlainText, encryptedBuffer){
-    objAes = {
-        decryptedPlainText: "",
-        decryptedBuffer: ""
-    };
+function aes256Decrypt(key, encryptedPlainText){
+    var decryptedPlainText= "";
 
     var cipher = aes256.createCipher(key);
 
-    objAes.decryptedPlainText = cipher.decrypt(encryptedPlainText);
+    console.log("encrProva",encryptedPlainText.toString());
 
-    objAes.decryptedBuffer = cipher.decrypt(encryptedBuffer);
+    decryptedPlainText = cipher.decrypt(encryptedPlainText.toString());
 
-    return objAes;
+    return decryptedPlainText;
 }
 
 
@@ -138,16 +138,26 @@ exports.insertTable = (req, res, next) => {
     });
 };
 
-exports.getFileUUID = (req, res, next) => {
-    let id = req.params.id; 
-    if(!validator.isNumeric(id) || id == 0){
+exports.decryptFileByUUID = (req, res, next) => {
+    let uuid = req.body.uuid;
+    let key = req.body.key; 
+    console.log("keyy",key);
+    console.log("uuidd",uuid);
+    if(!uuid && !key){
         res.send('Parameter error: invalid parameters');
     }else{
-        db.query("SELECT * FROM prova WHERE id = " + id, (err, rows, fields) => {
+        db.query("SELECT * FROM files WHERE uuid = '" + uuid +"'", (err, rows, fields) => {
             if(err){
                 res.send('Query error: ' + err.sqlMessage);
             }else{
-                res.json(rows);
+                var decryptedObj = {
+                    uuid: rows[0].uuid,
+                    fileName: rows[0].name,
+                    size: rows[0].size,
+                    mime: rows[0].mime,
+                    payload: aes256Decrypt(key, rows[0].payload)
+                }
+                res.json(decryptedObj);
             }
         }); 
     }
