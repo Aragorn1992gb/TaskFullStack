@@ -16,9 +16,22 @@
 	<button ng-click="submitForm()">
 		Clicca
 	</button>
+	<button ng-click="decryptFile()">
+		Decrypt
+	</button>
+	<button ng-click="downloadFile()">
+		Download
+	</button>
 
 	UUID: {{ fileInsertedInfo.uuid }}
 	KEY: {{ fileInsertedInfo.key }}
+
+	-- DECRYPTED FILE --
+	<br>
+	UUID: {{ decryptedFileObj.uuid }}
+	NAME: {{ decryptedFileObj.name }}
+	SIZE: {{ decryptedFileObj.size }}
+	MIME: {{ decryptedFileObj.mime }}
 
 	<input type='file' accept='image/*' onchange='openFile(event)'><br>
 	<img id='output'>
