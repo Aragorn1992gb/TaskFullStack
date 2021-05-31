@@ -23,6 +23,7 @@ module.exports = function(app) {
 
 	router.get('/prove/:id/',customers.getTable);
 	router.post('/insert/',customers.insertFile);
+	router.post('/decrypt/',customers.decryptFileByUUID);
  
 	app.use("*", (req,res) => {
 		res.sendFile(path + "404.html");

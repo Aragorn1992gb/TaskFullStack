@@ -55,11 +55,48 @@ res.send(customers);
 
 const db = require('../../db');
 const validator = require('validator');
+const aes256 = require('aes256');
+const cryptoVar = require('crypto');
 
 const { 
     v1: uuidv1,
     v4: uuidv4,
   } = require('uuid');
+
+function aes256Encrypt(plaintext){
+    objAes = {
+        key: "",
+        encryptedPlainText: ""
+    };
+
+    objAes.key = cryptoVar.randomBytes(64).toString('base64');
+
+    var cipher = aes256.createCipher(objAes.key);
+
+    objAes.encryptedPlainText = cipher.encrypt(plaintext);
+
+    console.log("PLAIN",plaintext);
+    console.log("ENCR",objAes.encryptedPlainText);
+
+    var decryptedPlainText = cipher.decrypt(objAes.encryptedPlainText);
+
+    console.log("decryptedPlainText",decryptedPlainText);    
+
+    return objAes;
+}
+
+function aes256Decrypt(key, encryptedPlainText){
+    var decryptedPlainText= "";
+
+    var cipher = aes256.createCipher(key);
+
+    console.log("encrProva",encryptedPlainText.toString());
+
+    decryptedPlainText = cipher.decrypt(encryptedPlainText.toString());
+
+    return decryptedPlainText;
+}
+
 
 exports.createTable = (req, res, next) => {
     let id = req.params.id; 
@@ -101,16 +138,26 @@ exports.insertTable = (req, res, next) => {
     });
 };
 
-exports.getFileUUID = (req, res, next) => {
-    let id = req.params.id; 
-    if(!validator.isNumeric(id) || id == 0){
+exports.decryptFileByUUID = (req, res, next) => {
+    let uuid = req.body.uuid;
+    let key = req.body.key; 
+    console.log("keyy",key);
+    console.log("uuidd",uuid);
+    if(!uuid && !key){
         res.send('Parameter error: invalid parameters');
     }else{
-        db.query("SELECT * FROM prova WHERE id = " + id, (err, rows, fields) => {
+        db.query("SELECT * FROM files WHERE uuid = '" + uuid +"'", (err, rows, fields) => {
             if(err){
                 res.send('Query error: ' + err.sqlMessage);
             }else{
-                res.json(rows);
+                var decryptedObj = {
+                    uuid: rows[0].uuid,
+                    fileName: rows[0].name,
+                    size: rows[0].size,
+                    mime: rows[0].mime,
+                    payload: aes256Decrypt(key, rows[0].payload)
+                }
+                res.json(decryptedObj);
             }
         }); 
     }
@@ -121,12 +168,18 @@ exports.getFileUUID = (req, res, next) => {
 
 
 exports.insertFile = (req, res, next) => {
-    db.query("INSERT INTO files VALUES('"+uuidv4()+"', '"+req.body.name+"', "+req.body.size+", '"+req.body.mime+"', '"+req.body.payload+"');", function(err, row){
-    // db.query("INSERT INTO files VALUES("+uuidv4()+", '"+req.body.name+"', "+req.body.size+", '"+req.body.mime+"', "+req.body.payload+");", function(err, row){
+    var encPayload = aes256Encrypt(req.body.payload);
+    var uuid = uuidv4();
+
+    db.query("INSERT INTO files VALUES('"+uuid+"', '"+req.body.name+"', "+req.body.size+", '"+req.body.mime+"', '"+encPayload.encryptedPlainText+"');", function(err, row){
         if(err){
             res.send('Query error: ' + err.sqlMessage);
         }else{
-            res.json(row.uuid);
+            var info = {
+                uuid: uuid,
+                key: encPayload.key
+            }
+            res.json(info);
         }
     });
 };
