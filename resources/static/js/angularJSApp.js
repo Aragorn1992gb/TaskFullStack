@@ -6,7 +6,6 @@ var app = angular.module('app', []);
  
 app.controller('jsaLoadCustomers', function($scope, $http, $location) {
 	  
-	$scope.customers = [];
 	$scope.fileObj = {
 		name: "",
 		size: 0,
@@ -29,17 +28,6 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location) {
 		payload: ""
 	};
 	
-	function getAllCustomers(){
-		var url = "api/customers/all";
-		
-		// do getting
-		$http.get(url).then( response => {
-			$scope.getDivAvailable = true;
-			$scope.customers = response.data;
-		}, response => {
-			$scope.postResultMessage = "Error Status: " +  response.statusText;
-		});
-	}
 
 	$scope.submitForm = function() {
 		$http({
@@ -97,6 +85,4 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location) {
 		reader.readAsDataURL(input.files[0]);
 	  };
 
-	
-	getAllCustomers();
 });

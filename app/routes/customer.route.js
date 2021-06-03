@@ -15,9 +15,6 @@ module.exports = function(app) {
 	app.get('/', (req,res) => {
 		res.sendFile(path + "index.html");
 	});
- 
-    // Retrieve all Customers
-    app.get('/api/customers/all', customers.getAll);
 	
 	app.use("/",router);
 

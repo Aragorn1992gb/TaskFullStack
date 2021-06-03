@@ -1,0 +1,165 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    background: #292929;
+}
+
+.label-filename {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 70.45%;
+    bottom: 0%;
+
+    /* p_standard */
+
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 26px;
+    /* identical to box height, or 162% */
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.label-filename .with-file {
+    color: #161616;
+}
+
+.img-file {
+    position: absolute;
+    left: 8.33%;
+    right: 12.5%;
+    top: 4.17%;
+    bottom: 4.17%;
+
+    /* BACKGROUND IMAGE */
+
+/* background: #FFFFFF; */
+}
+
+.img-file-yes {
+    background-image: url("../images/file-black-small.png");
+}
+
+.file-small {
+    position: absolute;
+    /* background-position-y: 12.5%; */
+    background-position-y: 45.8%;
+    /* background-position-x: 4.17%; */
+    background-position-x: 3.02%;
+    /* background-size: 82%; */
+    background-size: 10%;
+    background-repeat: no-repeat;
+}
+
+.container-filepreview {
+    position: relative;
+    width: 552px;
+    height: 120px;
+}
+
+/* .container-child {
+    left: 2.13%;
+    right: 2.13%;
+    top: 3.7%;
+    bottom: 3.7%;
+
+    background: rgba(22, 22, 22, 0.16);
+    border: 1px dashed #363636;
+    box-sizing: border-box;
+}
+
+.container-child .container-large {
+    position: absolute;
+    left: 0.85%;
+    right: 0.85%;
+    top: 3.7%;
+    bottom: 3.7%;
+
+    background: rgba(22, 22, 22, 0.16);
+    border: 1px dashed #363636;
+    box-sizing: border-box;
+} */
+
+.container-listbox {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    background: #FFFFFF;
+    border-radius: 3px;
+}
+
+.container-orange-base-big {
+    height: 21.4%;
+    width: 65%;
+    top: 38.6%;
+    right: -17.5%;
+
+    position: relative;
+}
+
+.container-orange-big {
+    height: 21.4%;
+    width: 65%;
+    top: 38.6%;
+    right: 17.5%;
+
+    position: absolute;
+    background-color: #FFA047;
+}
+
+.container-orange-big-inside {
+    position: absolute;
+    left: 0.85%;
+    right: 0.85%;
+    top: 3.7%;
+    bottom: 3.7%;
+
+    background: rgba(22, 22, 22, 0.16);
+    border: 1px dashed #363636;
+    box-sizing: border-box;
+
+}
+
+.container-big-info {
+    position: absolute;
+    left: 20.53%;
+    right: 20.27%;
+    top: 66.67%;
+    bottom: 22.22%;
+    
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 162%;
+    
+    display: flex;
+    align-items: center;
+    text-align: center;
+    
+    color: #161616;
+
+    display: inline-block;
+    
+}
+
+.listbox-container {
+    height: 24%;
+    width: 28.7%;
+    top: 32%;
+    left: 35.65%;
+    
+    position: relative;
+    background: #FFFFFF;
+    border-radius: 3px;
+}

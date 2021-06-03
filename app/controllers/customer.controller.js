@@ -47,11 +47,6 @@ var customers = [
     }
 ]
 
-exports.getAll = (req, res) => {
-console.log("--->Get All Customers: \n" + JSON.stringify(customers, null, 4));
-res.send(customers); 
-};
-
 
 const db = require('../../db');
 const validator = require('validator');
