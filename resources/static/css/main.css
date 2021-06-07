@@ -1,7 +1,7 @@
 html, body {
     margin: 0;
     height: 100%;
-    background: #292929;
+    background: #000000;
 }
 
 .label-filename {
@@ -16,7 +16,7 @@ html, body {
     font-family: Nunito;
     font-style: normal;
     font-weight: normal;
-    font-size: 16px;
+    font-size: 1.11vw;
     line-height: 26px;
     /* identical to box height, or 162% */
 
@@ -49,12 +49,10 @@ html, body {
 
 .file-small {
     position: absolute;
-    /* background-position-y: 12.5%; */
     background-position-y: 45.8%;
-    /* background-position-x: 4.17%; */
-    background-position-x: 3.02%;
-    /* background-size: 82%; */
-    background-size: 10%;
+    /* background-position-x: 3.02%; */
+    background-size: 15%;
+    width: 50%;
     background-repeat: no-repeat;
 }
 
@@ -140,7 +138,7 @@ html, body {
     font-family: Nunito;
     font-style: normal;
     font-weight: normal;
-    font-size: 16px;
+    font-size: 1.11vw;
     line-height: 162%;
     
     display: flex;
@@ -162,4 +160,93 @@ html, body {
     position: relative;
     background: #FFFFFF;
     border-radius: 3px;
+}
+
+.listbox-center-part {
+    position: absolute;
+    /* left: 28.03%; */
+    left: 23.03%;
+    right: 18.18%;
+    top: 0%;
+    bottom: 0%;
+
+    /* p_standard */
+
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.11vw;
+    line-height: 162%;
+    /* or 162% */
+
+    display: flex;
+    align-items: center;
+
+    color: #292929;
+
+    border-right: 1px solid #98A0A6;
+}
+
+.listbox-arrow-part {
+    position: absolute;
+    left: 88%;
+    top: 42.89%;
+    bottom: 33.33%;
+    background-size: 4.63%;
+    width: 100%;
+    background-repeat: no-repeat;
+
+    background-image: url("../images/arrow.png");
+}
+
+.cubbit-header {
+    position: absolute;
+    height: 72px;
+    left: 0%;
+    right: 0%;
+    top: 0px;
+
+    background: #292929;
+}
+
+.cubbit-logo {
+    position: absolute;
+    width: 119px;
+    height: 46px;
+    left: 23px;
+    top: 13px;
+
+    background-repeat: no-repeat;
+
+    background-image: url("../images/logo.png");
+}
+
+.application-title {
+    position: absolute;
+    height: 47px;
+    left: 9.23%;
+    top: 21.43%;
+    width: 84.26%;
+
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 2.5vw;
+    line-height: 130%;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    display: inline-block;
+
+    color: #FFFFFF;
+}
+
+.input-file {
+    width: 100%;
+    z-index: 999999;
+    height: 100%;
+    position: relative;
+    opacity: 0%;
 }
