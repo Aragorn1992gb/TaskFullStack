@@ -250,3 +250,38 @@ html, body {
     position: relative;
     opacity: 0%;
 }
+
+.button-blue {
+    position: absolute;
+
+    height: 4.76%;
+    width: 11.67%;
+    
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.11vw;
+    line-height: 162%;
+    
+    display: flex;
+    align-items: center;
+    text-align: center;
+    display: inline-block;
+    
+    background: #009EFF;
+    border-radius: 3px;
+    color: #FFFFFF;
+
+    padding: 0;
+    white-space: nowrap;
+}
+
+.file-upload {
+    top: 64.78%;
+    left: 37.5%;
+}
+
+.file-download {
+    top: 64.78%;
+    left: 50.83%;
+}
