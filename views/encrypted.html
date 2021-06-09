@@ -2,7 +2,7 @@
  
 <html>
 	<head>
-		<title>Upload and Encrypt</title>
+		<title>Encrypted</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
@@ -12,7 +12,6 @@
 		<link href="static/css/main.css" rel="stylesheet">
 		<script src="/static/js/translations/translations_english.js"></script>
 		<script src="/static/js/translations/translations_crypto.js"></script>
-		
 		<!-- <script> 
 			$(function(){
 			  $("#headerContent").load("./header.html"); 
@@ -20,7 +19,7 @@
 		</script> -->
 	</head>
 	
-	<body style="height: 100%" ng-app="app" ng-controller="jsaLoadCustomers">
+	<body style="height: 100%" ng-app="app" ng-controller="encryptedCtrl">
 		<header>
 			<div class="cubbit-header">
 				<div class="cubbit-logo"></div>
@@ -31,32 +30,7 @@
 			</div>
 		</header>
 		<div>
-			<h2 class="application-title">
-				{{ indexTitle }}
-			</h2>
-			<p class="application-body">
-				{{ indexDescription }}
-			</p>
-			<div class="container-orange-big">
-				<div class="container-orange-big-inside"></div>
-				<label class="container-big-info" id="biginfo">or drop files here</label>
-				<div id=file class="listbox-container">
-					<div class="img-file img-file-yes file-small"></div>
-					<div class="listbox-center-part">{{ listboxTitle }}</div>
-					<div class="listbox-arrow-part"></div>
-				</div>
-				<div class="uploaded uploaded-ico hidden" id="uploadedIco"></div>
-				<div class="uploaded uploaded-label hidden" id="uploadedLabel">{{uploadedLabel}}</div>
-				
-				<input type="file" name="file" select-ng-files class="input-file" id="inputfile" ng-model="inputfile" onchange='openFile(event)'>
-			</div>
-
-			<button ng-click="submitForm()" class="button-blue file-upload">
-				Encrypt and upload
-			</button>
-			<button ng-click="decryptFile()" class="button-blue file-download">
-				Download and decrypt
-			</button>
+			CIAO
 		</div>
 
 		<footer>

@@ -223,10 +223,10 @@ html, body {
 
 .application-title {
     position: absolute;
-    height: 47px;
-    left: 9.23%;
-    top: 21.43%;
+    left: 7.84%;
+    top: 21.42%;
     width: 84.26%;
+    margin: 0;
 
     font-family: Nunito;
     font-style: normal;
@@ -243,7 +243,26 @@ html, body {
     color: #FFFFFF;
 }
 
+.application-body {
+    position: absolute;
+    left: 30.83%;
+    top: 28.47%;
+    width: 38.3%;
+
+
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.11vw;
+    line-height: 162%;
+
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
 .input-file {
+    /* top: -24%; */
     width: 100%;
     z-index: 999999;
     height: 100%;
@@ -284,4 +303,82 @@ html, body {
 .file-download {
     top: 64.78%;
     left: 50.83%;
+}
+
+.buttons-header {
+    position: absolute;
+    top: 22.22%;
+    left: 72%;
+    height: 55.56%;
+    width: 16.6%;
+
+    box-shadow: 0px 0px 0px 2px #009eff inset;
+    border-radius: 2px;
+}
+
+.half {
+    height: 100%;
+    width: 50%;
+    float: left;
+
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 0.97vw;
+    line-height: 187.5%;
+
+    /* display: flex; */
+    align-items: center;
+    text-align: center;
+    display: grid;
+
+    color: #FFFFFF;
+}
+
+.button-header-selected {
+    background: #009EFF;
+    border-radius: 2px;
+}
+
+.footer-element {
+    color: white;
+    position: absolute;
+    left: 15.28%;
+    right: 17.5%;
+    top: 88.59%;
+    bottom: 2.38%;
+    width: 67.22%;
+    height: 8.75%;
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 0.97vw;
+    line-height: 162%;
+    align-items: flex-end;
+    text-align: center;
+    display: inline-block;
+}
+
+.uploaded {
+    position: absolute;
+    bottom: 4.17%;
+}
+
+.uploaded-ico {
+    left: 48.5%;
+    right: 12.7%;
+    top: 29%;
+    background-size: 7%;
+    background-repeat: no-repeat;
+    background-image: url(../images/file-black.png);
+}
+
+.uploaded-label {
+    width: 100%;
+    text-align: center;
+    top: 59%;
+}
+
+.hidden {
+    display: none;
 }

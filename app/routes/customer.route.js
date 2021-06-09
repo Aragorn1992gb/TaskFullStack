@@ -15,12 +15,26 @@ module.exports = function(app) {
 	app.get('/', (req,res) => {
 		res.sendFile(path + "index.html");
 	});
+
+	app.post('/encrypt/', (req,res) => {
+		console.log(path);
+		res.redirect(307, "/getdecrypt");
+		// res.sendFile(path + "encrypted.html");
+	});
+
+	app.get('/decrypt', (req,res) => {
+		res.sendFile(path + "decrypt.html");
+	});
+
+	app.get('/decrypted', (req,res) => {
+		res.sendFile(path + "decrypted.html");
+	});
 	
 	app.use("/",router);
 
-	router.get('/prove/:id/',customers.getTable);
 	router.post('/insert/',customers.insertFile);
 	router.post('/decrypt/',customers.decryptFileByUUID);
+	router.post('/getdecrypt/',customers.decryptFileByUUID);
  
 	app.use("*", (req,res) => {
 		res.sendFile(path + "404.html");
