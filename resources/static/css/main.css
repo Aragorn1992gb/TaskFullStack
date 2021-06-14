@@ -479,6 +479,10 @@ html, body {
     width: 38.33%;
     margin: auto;
     margin-top: 0;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .d-blue-button {
@@ -579,4 +583,86 @@ html, body {
     left: 42.5%;
     width: 15%;
     height: 184.62%;
+}
+
+.label-description-result-encrypted {
+    float: left;
+    width: 40.49%;
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.11vw;
+    line-height: 162%;
+    position: relative;
+    text-align: center;
+    display: block;
+    align-items: center;
+    text-align: right;
+    color: #FFFFFF;
+}
+
+.description-from-result-container-encrypted {
+    position: absolute;
+    right: 36.39%;
+    bottom: 0%;
+    background: #292929;
+    border: 1px solid #363636;
+    box-sizing: border-box;
+    border-radius: 3px;
+    height: 115.38%;
+    border-radius: 3px;
+    width: 22.22%;
+    margin: auto;
+    margin-top: 0;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.p-text-description-updated-file {
+    overflow: hidden;
+
+    position: absolute;
+    left: 5.8%;
+    right: 27.9%;
+    top: 0%;
+    bottom: 0%;
+    margin: 0;
+    width: 100%;
+
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 0.97vw;
+    line-height: 162%;
+
+    display: flex;
+    align-items: center;
+
+    color: #FFFFFF;
+}
+
+.encrypted-file-id {
+    top: 36.90%;
+}
+
+.encrypted-file-name {
+    top: 40.18%;
+}
+
+.encrypted-file-size {
+    top: 43.85%;
+}
+
+.encrypted-file-mime {
+    top: 47.52%;
+}
+
+.insert-your-encryption-key {
+    top: 56.65%;
+}
+
+.width-insert-encryption-key {
+    width: 28.40%;
 }

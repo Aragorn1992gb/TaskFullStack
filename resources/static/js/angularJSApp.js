@@ -59,10 +59,7 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location, Lang, CONS
 		key: "",
 		name: ""
 	};
-	$scope.paramsForDecrypt = {
-		uuid: "797ea13b-78d8-487b-99f7-8567b012476b",
-		key: "kUV2WSpKEPL0UDKTdD148i638hMOSllct68tP7+EQ0G7zNvhLaGaOSLeqsX4i2SdV1PSzt10kn78z7hMFMlaxA=="
-	};
+
 	$scope.decryptedFileObj = {
 		uuid: "",
 		fileName: "",
@@ -116,18 +113,6 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location, Lang, CONS
 
 	$scope.decryptFile = function() {
 		window.location.href = CONSTANTS.env.url+"decryptfile";
-		// $http({
-		// 	method: 'POST',
-		// 	url: '/decrypt/',
-		// 	headers: {'Content-Type': 'application/json'},
-		// 	data: $scope.paramsForDecrypt
-		// }).then(
-		// 	function (response) {
-		// 		$scope.decryptedFileObj = response.data;
-		// 		console.log("SUCCESS"+response.data);
-		// 	}, function (error) {
-		// 		console.log("ERROR"+error.data);
-		// });
 	};
 
 	$scope.downloadFile = function(uri, name) {
@@ -262,29 +247,24 @@ app.controller('encryptedCtrl', function($scope, $http, $location, Lang, CONSTAN
 app.controller('decryptCtrl', function($scope, $http, $location, Lang, CONSTANTS, TRANSLATION_ENGLISH, TRANSLATION_CRYPTO) {
 
 	var language = Lang.getlang(CONSTANTS.languages.crypto);
-	$scope.fileInfo = {
-		uuid: "",
-		name: "",
-		size: 0,
-		mime: ""
-	};
 
 	var language = Lang.getlang(CONSTANTS.languages.crypto);
 
 	$scope.submitForm = function() {
-		$http({
-			method: 'GET',
-			url: '/getbyuuid/?uuid='+$("#uuid").val()
-		}).then(
-			function (response) {
-				$scope.fileInfo.uuid = response.data.uuid;
-				$scope.fileInfo.name = response.data.name;
-				$scope.fileInfo.size = response.data.size;
-				$scope.fileInfo.mime = response.data.mime;
-				console.log("SUCCESS"+JSON.stringify(response));
-			}, function (error) {
-				console.log("ERROR");
-		});
+		window.location.href = CONSTANTS.env.url+"searchbyuuid?uuid="+$("#uuid").val();
+		// $http({
+		// 	method: 'GET',
+		// 	url: '/getbyuuid/?uuid='+$("#uuid").val()
+		// }).then(
+		// 	function (response) {
+		// 		$scope.fileInfo.uuid = response.data.uuid;
+		// 		$scope.fileInfo.name = response.data.name;
+		// 		$scope.fileInfo.size = response.data.size;
+		// 		$scope.fileInfo.mime = response.data.mime;
+		// 		console.log("SUCCESS");
+		// 	}, function (error) {
+		// 		console.log("ERROR");
+		// });
 	};
 
 	$(function() {
@@ -310,11 +290,76 @@ app.controller('decryptCtrl', function($scope, $http, $location, Lang, CONSTANTS
 	$scope.footerDescription = translateMessage("footer_description");
 });
 
-app.controller('decryptedCtrl', function($scope, $http, $location, Lang, CONSTANTS, TRANSLATION_ENGLISH, TRANSLATION_CRYPTO) {
+app.controller('decryptingCtrl', function($scope, $http, $location, Lang, CONSTANTS, TRANSLATION_ENGLISH, TRANSLATION_CRYPTO) {
 
 	const urlSearchParams = new URLSearchParams(window.location.search);
 	const params = Object.fromEntries(urlSearchParams.entries());
 	var language = Lang.getlang(CONSTANTS.languages.crypto);
+
+	$scope.fileInfo = {
+		uuid: "",
+		name: "",
+		size: 0,
+		mime: ""
+	};
+
+	$scope.decryptedFileObj = {
+		uuid: "",
+		fileName: "",
+		size: 0,
+		mime: "",
+		payload: ""
+	};
+
+	$scope.paramsForDecrypt = {
+		uuid: "",
+		key: ""
+	};
+
+
+	$scope.getInfos = function() {
+		$http({
+			method: 'GET',
+			url: '/getbyuuid/?uuid='+params.uuid
+		}).then(
+			function (response) {
+				$scope.fileInfo.uuid = response.data.uuid;
+				$scope.fileInfo.name = response.data.fileName;
+				$scope.fileInfo.size = response.data.size;
+				$scope.fileInfo.mime = response.data.mime;
+				console.log("SUCCESS");
+			}, function (error) {
+				console.log("ERROR");
+		});
+	};
+
+	$scope.decryptAndDownload = function() {
+		$scope.paramsForDecrypt.uuid = $scope.fileInfo.uuid;
+		$scope.paramsForDecrypt.key = $("#encrkey").val();
+		$http({
+			method: 'POST',
+			url: '/decrypt/',
+			headers: {'Content-Type': 'application/json'},
+			data: $scope.paramsForDecrypt
+		}).then(
+			function (response) {
+				$scope.decryptedFileObj = response.data;
+				console.log("SUCCESS"+response.data);
+				$scope.downloadFile();
+			}, function (error) {
+				console.log("ERROR"+error.data);
+		});
+	};
+
+	$scope.downloadFile = function(uri, name) {
+		var a = document.createElement("a");
+		a.download = $scope.decryptedFileObj.fileName;
+		a.href = $scope.decryptedFileObj.payload;
+		a.click();
+		// window.location.href = 'data:'+$scope.decryptedFileObj.mime+'base64,' + $scope.decryptedFileObj.payload;
+	};
+
+	$scope.getInfos();
 
 	$(function() {
 		$("#"+language).addClass("button-header-selected");

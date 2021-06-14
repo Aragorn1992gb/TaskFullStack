@@ -30,8 +30,6 @@ module.exports = function(app) {
 
 	app.post('/encrypt/', (req,res) => {
 
-		console.log("uuid: ", req.body.uuid,"key: ", req.body.key,"name", req.body.name)
-
 		var promises = [];
 
 		promises.push( new Promise( function(resolve,reject) {
@@ -78,9 +76,9 @@ module.exports = function(app) {
 		res.sendFile(path + "decrypt.html");
 	});
 
-	app.get('/decrypted', (req,res) => {
-		res.sendFile(path + "decrypted.html");
-	});
+	// app.get('/decrypted', (req,res) => {
+	// 	res.sendFile(path + "decrypted.html");
+	// });
 
 	app.get('/encrypted', (req,res) => {
 		res.sendFile(path + "encrypted.html");
@@ -151,10 +149,10 @@ module.exports = function(app) {
 		
 	});
 
-	// app.get('/searchbyuuid', (req,res) => {
-	// 	console.log(req);
-	// 	// res.sendFile(path + "encrypted.html");
-	// });
+	app.get('/searchbyuuid', (req,res) => {
+		console.log(req);
+		res.sendFile(path + "decrypting.html");
+	});
 
 	function handleError(res,err) {
 		res.status(501); 

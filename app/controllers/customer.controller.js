@@ -94,16 +94,13 @@ exports.selectByUUID = (req, res, next) => {
             if(err){
                 res.send('Query error: ' + err.sqlMessage);
             }else{
-                console.log("length ",rows.length,"ghJ",rows.size)
                 if(rows.length > 0){
-                    console.log("ok");
                     var encryptedObj = {
                         uuid: rows[0].uuid,
                         fileName: rows[0].name,
                         size: rows[0].size,
                         mime: rows[0].mime
                     }
-                    console.log(encryptedObj.uuid);
                     res.json(encryptedObj);
                 } else {
                     console.log("Noone file find for that UUID");
