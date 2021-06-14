@@ -2,6 +2,7 @@ const db = require('../../db');
 const validator = require('validator');
 const aes256 = require('aes256');
 const cryptoVar = require('crypto');
+const url = require('url');
 
 const { 
     v1: uuidv1,
@@ -20,12 +21,7 @@ function aes256Encrypt(plaintext){
 
     objAes.encryptedPlainText = cipher.encrypt(plaintext);
 
-    console.log("PLAIN",plaintext);
-    console.log("ENCR",objAes.encryptedPlainText);
-
     var decryptedPlainText = cipher.decrypt(objAes.encryptedPlainText);
-
-    console.log("decryptedPlainText",decryptedPlainText);    
 
     return objAes;
 }
@@ -35,59 +31,16 @@ function aes256Decrypt(key, encryptedPlainText){
 
     var cipher = aes256.createCipher(key);
 
-    console.log("encrProva",encryptedPlainText.toString());
-
     decryptedPlainText = cipher.decrypt(encryptedPlainText.toString());
 
     return decryptedPlainText;
 }
 
 
-exports.createTable = (req, res, next) => {
-    let id = req.params.id; 
-    if(!validator.isNumeric(id) || id == 0){
-        res.send('Parameter error: invalid parameters');
-    }else{
-        db.query("SELECT * FROM prova WHERE id = " + id, (err, rows, fields) => {
-            if(err){
-                res.send('Query error: ' + err.sqlMessage);
-            }else{
-                res.json(rows);
-            }
-        });
-    }
-};
-
-exports.getTable = (req, res, next) => {
-    let id = req.params.id; 
-    if(!validator.isNumeric(id) || id == 0){
-        res.send('Parameter error: invalid parameters');
-    }else{
-        db.query("SELECT * FROM prova WHERE id = " + id, (err, rows, fields) => {
-            if(err){
-                res.send('Query error: ' + err.sqlMessage);
-            }else{
-                res.json(rows);
-            }
-        });
-    }
-};
-
-exports.insertTable = (req, res, next) => {
-    db.query("INSERT INTO prova VALUES("+uuidv4()+", '"+req.body.desc+"');", function(err, row){
-        if(err){
-            res.send('Query error: ' + err.sqlMessage);
-        }else{
-            res.json(row);
-        }
-    });
-};
 
 exports.decryptFileByUUID = (req, res, next) => {
     let uuid = req.body.uuid;
     let key = req.body.key; 
-    console.log("keyy",key);
-    console.log("uuidd",uuid);
     if(!uuid && !key){
         res.send('Parameter error: invalid parameters');
     }else{
@@ -108,23 +61,54 @@ exports.decryptFileByUUID = (req, res, next) => {
     }
 };
 
-// bytearray for payload
-// uuidv4() must arrive by FE in uiid
-
 
 exports.insertFile = (req, res, next) => {
     var encPayload = aes256Encrypt(req.body.payload);
     var uuid = uuidv4();
-
-    db.query("INSERT INTO files VALUES('"+uuid+"', '"+req.body.name+"', "+req.body.size+", '"+req.body.mime+"', '"+encPayload.encryptedPlainText+"');", function(err, row){
+    var name = req.body.name.replace(/\'/g, '');
+    var query = "INSERT INTO files VALUES('"+uuid+"', '"+name+"', "+req.body.size+", '"+req.body.mime+"', '"+encPayload.encryptedPlainText+"');";
+    db.query(query, function(err, row){
         if(err){
-            res.send('Query error: ' + err.sqlMessage);
+            res.status(200);
+            res.send('Query error: ' + err.sqlMessage + "query: " + query);
         }else{
             var info = {
                 uuid: uuid,
-                key: encPayload.key
+                key: encPayload.key,
+                name: name
             }
             res.json(info);
         }
     });
+};
+
+exports.selectByUUID = (req, res, next) => {
+    console.log("entrato", req.url);
+    let params = (new URL("http://localhost:8080/"+req.url)).searchParams;
+    var uuid = params.get('uuid');
+    console.log(uuid);
+    if(!uuid){
+        res.send('Parameter error: invalid parameter');
+    }else{
+        db.query("SELECT * FROM files WHERE uuid = '" + uuid +"'", (err, rows, fields) => {
+            if(err){
+                res.send('Query error: ' + err.sqlMessage);
+            }else{
+                console.log("length ",rows.length,"ghJ",rows.size)
+                if(rows.length > 0){
+                    console.log("ok");
+                    var encryptedObj = {
+                        uuid: rows[0].uuid,
+                        fileName: rows[0].name,
+                        size: rows[0].size,
+                        mime: rows[0].mime
+                    }
+                    console.log(encryptedObj.uuid);
+                    res.json(encryptedObj);
+                } else {
+                    console.log("Noone file find for that UUID");
+                }
+            }
+        }); 
+    };
 };

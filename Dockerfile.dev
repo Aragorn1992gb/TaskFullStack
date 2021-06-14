@@ -9,6 +9,7 @@ RUN npm install validator
 RUN npm install body-parser
 RUN npm install cors
 RUN npm install mysql
+RUN npm install redis
 RUN npm install uuid
 RUN npm install aes256
 

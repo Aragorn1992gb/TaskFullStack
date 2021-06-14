@@ -3,6 +3,8 @@ CREATE TABLE IF NOT EXISTS `files` (
   `name` varchar(200) not NULL,
   `size` float not NULL,
   `mime` varchar(20) not NULL,
-  `payload` blob not NULL,
+  `payload` longblob not NULL,
   PRIMARY KEY (`uuid`)
 )
+
+-- Try to use LONGBLOB instead

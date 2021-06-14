@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+ 
+<html>
+	<head>
+		<title>Encrypted</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script src="/static/js/angularJsApp.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+		<link href="static/css/main.css" rel="stylesheet">
+		<script src="/static/js/translations/translations_english.js"></script>
+		<script src="/static/js/translations/translations_crypto.js"></script>
+	</head>
+	
+	<body style="height: 100%; overflow: hidden;" ng-app="app" ng-controller="decryptedCtrl">
+		<header>
+			<div class="cubbit-header">
+				<div class="cubbit-logo"></div>
+				<div class="buttons-header">
+					<div id="english" class="half" ng-click="changeLanguage($event)">Ecnrypted</div>
+					<div id="crypto" class="half" ng-click="changeLanguage($event)">b-&+(2'</div>
+				</div>
+			</div>
+		</header>
+		<!-- <div>
+			<h2 class="application-title">
+				{{ indexTitle }}
+			</h2>
+                <div class="description-updated-file your-file-id">
+                    <form action="/decrypted" method="get" id="searchForm">
+                        <div class="label-description-from-result">
+                            Insert your file id:
+                        </div>
+                        <input type="text" id="uuid" name="uuid" class="description-from-result-container insert-uuid"/>
+                    </form>
+
+                    <button type="submit" form="searchForm" class="d-yellow-button p-yellow-button">
+                        Get file
+                    </button>
+                </div>
+		</div> -->
+
+		<!-- <footer>
+			<div class="footer-element">
+				<div class="footer-text">
+					{{footerDescription}}
+				</div>
+			</div>
+		</footer> -->
+
+	</body>
+</html>

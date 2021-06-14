@@ -12,58 +12,67 @@
 		<link href="static/css/main.css" rel="stylesheet">
 		<script src="/static/js/translations/translations_english.js"></script>
 		<script src="/static/js/translations/translations_crypto.js"></script>
-		<!-- <script> 
-			$(function(){
-			  $("#headerContent").load("./header.html"); 
-			});
-		</script> -->
 	</head>
 	
-	<body style="height: 100%" ng-app="app" ng-controller="encryptedCtrl">
+	<body style="height: 100%; overflow: hidden;" ng-app="app" ng-controller="encryptedCtrl">
 		<header>
 			<div class="cubbit-header">
 				<div class="cubbit-logo"></div>
 				<div class="buttons-header">
-					<div id="english" class="half" ng-click="changeLanguage($event)">Ecnrypt</div>
+					<div id="english" class="half" ng-click="changeLanguage($event)">Ecnrypted</div>
 					<div id="crypto" class="half" ng-click="changeLanguage($event)">b-&+(2'</div>
 				</div>
 			</div>
 		</header>
 		<div>
-			CIAO
+			<h2 class="application-title">
+				{{ indexTitle }}
+			</h2>
+			<div class="container-white-file">
+				<div class="uploaded uploaded-ico-white"></div>
+				<div class="uploaded uploaded-label-white">
+					{{ fileInsertedInfo.name }}
+				</div>
+			</div>
+			<div class="description-updated-file your-file-id">
+				<div class="label-description-from-result">
+					Your file id:
+				</div>
+				<div class="description-from-result-container">
+					<p class="p-text-description-updated-file">
+						{{ fileInsertedInfo.uuid }}
+					</p>
+					<input type="text" id="text-uuid" value="{{ fileInsertedInfo.uuid }}" style="opacity: 0;">
+					<button class="d-blue-button p-blue-button" ng-click="copyElement('text-uuid')">
+						Copy
+					</button>
+				</div>
+			</div>
+
+			<div  class="description-updated-file your-encryption-key">
+				<div class="label-description-from-result">
+					Your encryption key:
+				</div>
+				<div class="description-from-result-container">
+					<p class="p-text-description-updated-file">
+						{{ fileInsertedInfo.key }}
+					</p>
+					<input type="text" id="text-key" value="{{ fileInsertedInfo.key }}" style="opacity: 0;">
+					<button class="d-blue-button p-blue-button" ng-click="copyElement('text-key')">
+						Copy
+					</button>	
+					</div>
+				</div>
+			</div>
+
 		</div>
 
 		<footer>
-			<div class="footer-element">{{footerDescription}}</div>
+			<div class="footer-element">
+				<div class="footer-text">
+					{{footerDescription}}
+				</div>
+			</div>
 		</footer>
-
-	
-		<!-- </div> -->
-
-		<!-- <div  ng-app="app" ng-controller="jsaLoadCustomers">
-			<h3>Customers List:</h3>
-			<button ng-click="submitForm()">
-				Clicca
-			</button>
-			<button ng-click="decryptFile()">
-				Decrypt
-			</button>
-			<button ng-click="downloadFile()">
-				Download
-			</button>
-
-			UUID: {{ fileInsertedInfo.uuid }}
-			KEY: {{ fileInsertedInfo.key }}
-
-			-- DECRYPTED FILE --
-			<br>
-			UUID: {{ decryptedFileObj.uuid }}
-			NAME: {{ decryptedFileObj.name }}
-			SIZE: {{ decryptedFileObj.size }}
-			MIME: {{ decryptedFileObj.mime }}
-
-			<input type='file' accept='image/*' onchange='openFile(event)'><br>
-			<img id='output'>
-		</div> -->
 	</body>
 </html>

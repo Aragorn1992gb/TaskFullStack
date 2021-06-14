@@ -22,6 +22,9 @@ app.service('Lang', function() {
 });
 
 app.constant('CONSTANTS', {
+	env: {
+		url: "http://localhost:8080/"
+	},
     languages: {
 		eng: "english",
 		crypto: "crypto"
@@ -53,7 +56,8 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location, Lang, CONS
 	};
 	$scope.fileInsertedInfo = {
 		uuid: "",
-		key: ""
+		key: "",
+		name: ""
 	};
 	$scope.paramsForDecrypt = {
 		uuid: "797ea13b-78d8-487b-99f7-8567b012476b",
@@ -76,58 +80,54 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location, Lang, CONS
 
 	
 
-	// $scope.submitForm = function() {
-	// 	$http({
-	// 		method: 'POST',
-	// 		url: '/insert/',
-	// 		headers: {'Content-Type': 'application/json'},
-	// 		data: $scope.fileObj
-	// 	}).then(
-	// 		function (response) {
-	// 			$scope.fileInsertedInfo.uuid = response.data.uuid;
-	// 			$scope.fileInsertedInfo.key = response.data.key;
-	// 			console.log("SUCCESS"+response.data);
-	// 			window.location.href = "http://localhost:8080/encrypted";
-	// 		}, function (error) {
-	// 			console.log("ERROR"+error.data);
-	// 	});
-	// };
-
 	$scope.submitForm = function() {
 		$http({
 			method: 'POST',
-			url: '/encrypt/',
+			url: '/insert/',
 			headers: {'Content-Type': 'application/json'},
 			data: $scope.fileObj
 		}).then(
 			function (response) {
+				$scope.fileInsertedInfo.uuid = response.data.uuid;
+				$scope.fileInsertedInfo.key = response.data.key;
+				$scope.fileInsertedInfo.name = response.data.name;
+				console.log("SUCCESS"+JSON.stringify(response));
+				$scope.goToEncryptedPage($scope.fileInsertedInfo);
+			}, function (error) {
+				console.log("ERROR");
+		});
+	};
+
+	$scope.goToEncryptedPage = function(info) {
+		console.log(info);
+		$http({
+			method: 'POST',
+			url: '/encrypt/',
+			headers: {'Content-Type': 'application/json'},
+			data: info
+		}).then(
+			function (response) {
 				console.log("ok");
+				window.location.href = CONSTANTS.env.url+"encrypted";
 			}, function (error) {
 				console.log("ERROR"+error.data);
 		});
 	};
-	// };
-
-	// $scope.submitForm = function() {
-	// 	console.log("asdas",$scope.file);
-	// 	app.get('/encrypted/', "hello");
-	// 	// window.location.href = "http://localhost:8080/encrypted/"+$scope.fileObj;
-	// };
-	
 
 	$scope.decryptFile = function() {
-		$http({
-			method: 'POST',
-			url: '/decrypt/',
-			headers: {'Content-Type': 'application/json'},
-			data: $scope.paramsForDecrypt
-		}).then(
-			function (response) {
-				$scope.decryptedFileObj = response.data;
-				console.log("SUCCESS"+response.data);
-			}, function (error) {
-				console.log("ERROR"+error.data);
-		});
+		window.location.href = CONSTANTS.env.url+"decryptfile";
+		// $http({
+		// 	method: 'POST',
+		// 	url: '/decrypt/',
+		// 	headers: {'Content-Type': 'application/json'},
+		// 	data: $scope.paramsForDecrypt
+		// }).then(
+		// 	function (response) {
+		// 		$scope.decryptedFileObj = response.data;
+		// 		console.log("SUCCESS"+response.data);
+		// 	}, function (error) {
+		// 		console.log("ERROR"+error.data);
+		// });
 	};
 
 	$scope.downloadFile = function(uri, name) {
@@ -144,8 +144,6 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location, Lang, CONS
 		var reader = new FileReader();
 		reader.onload = function(){
 		  var dataURL = reader.result;
-		//   var output = document.getElementById('output');
-		//   output.src = dataURL;
 		  $scope.fileObj.name = input.files[0].name;
 		  $scope.fileObj.size = input.files[0].size;
 		  $scope.fileObj.mime = input.files[0].type+";";
@@ -198,20 +196,145 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location, Lang, CONS
 
 app.controller('encryptedCtrl', function($scope, $http, $location, Lang, CONSTANTS, TRANSLATION_ENGLISH, TRANSLATION_CRYPTO) {
 
-	$scope.submitForm = function() {
+	var language = Lang.getlang(CONSTANTS.languages.crypto);
+
+	$scope.fileInsertedInfo = {
+		uuid: "",
+		key: "",
+		name: ""
+	};
+
+	$(function() {
+		$("#"+language).addClass("button-header-selected");
+	});
+
+	$scope.getFileInfo = function() {
 		$http({
-			method: 'POST',
-			url: '/insert/',
-			headers: {'Content-Type': 'application/json'},
-			data: $scope.fileObj
+			method: 'GET',
+			url: '/getFileInfo/'
 		}).then(
 			function (response) {
-				$scope.fileInsertedInfo.uuid = response.data.uuid;
-				$scope.fileInsertedInfo.key = response.data.key;
-				console.log("SUCCESS"+response.data);
-				window.location.href = "http://localhost:8080/encrypted";
+				if(response.data.uuid && response.data.key && response.data.name) {
+					$scope.fileInsertedInfo.uuid = response.data.uuid;
+					$scope.fileInsertedInfo.key = response.data.key;
+					$scope.fileInsertedInfo.name = response.data.name;
+					console.log("SUCCESS");
+				} else {
+					console.log("Empty file information, redirect to home page...");
+					window.location.href = CONSTANTS.env.url;
+				}
+				
 			}, function (error) {
 				console.log("ERROR"+error.data);
 		});
 	};
+
+	$scope.getFileInfo();
+
+	translateMessage =  function(msg) {
+        return eval("TRANSLATION_"+language.toUpperCase()+"."+msg);    
+    } 
+
+	$scope.copyElement = function(id) {
+		var textToCopy = document.getElementById(id);
+		textToCopy.select();
+		textToCopy.setSelectionRange(0, 99999); /* For mobile devices */
+	  
+		document.execCommand("copy");
+	  }
+
+	$scope.changeLanguage = function(event) {
+	
+	$scope.selectedLanguage = event.srcElement.id;
+
+	if($scope.selectedLanguage != language){
+		Lang.setlang($scope.selectedLanguage);
+		window.location.href = CONSTANTS.env.url+"encrypted";
+	}
+
+	};
+
+	$scope.indexTitle = translateMessage("index_title");
+	$scope.footerDescription = translateMessage("footer_description");
+});
+
+
+app.controller('decryptCtrl', function($scope, $http, $location, Lang, CONSTANTS, TRANSLATION_ENGLISH, TRANSLATION_CRYPTO) {
+
+	var language = Lang.getlang(CONSTANTS.languages.crypto);
+	$scope.fileInfo = {
+		uuid: "",
+		name: "",
+		size: 0,
+		mime: ""
+	};
+
+	var language = Lang.getlang(CONSTANTS.languages.crypto);
+
+	$scope.submitForm = function() {
+		$http({
+			method: 'GET',
+			url: '/getbyuuid/?uuid='+$("#uuid").val()
+		}).then(
+			function (response) {
+				$scope.fileInfo.uuid = response.data.uuid;
+				$scope.fileInfo.name = response.data.name;
+				$scope.fileInfo.size = response.data.size;
+				$scope.fileInfo.mime = response.data.mime;
+				console.log("SUCCESS"+JSON.stringify(response));
+			}, function (error) {
+				console.log("ERROR");
+		});
+	};
+
+	$(function() {
+		$("#"+language).addClass("button-header-selected");
+	});
+
+	translateMessage =  function(msg) {
+        return eval("TRANSLATION_"+language.toUpperCase()+"."+msg);    
+    } 
+
+	$scope.changeLanguage = function(event) {
+	
+		$scope.selectedLanguage = event.srcElement.id;
+
+		if($scope.selectedLanguage != language){
+			Lang.setlang($scope.selectedLanguage);
+			window.location.href = CONSTANTS.env.url+"decryptfile";
+		}
+
+	};
+
+	$scope.indexTitle = translateMessage("index_title");
+	$scope.footerDescription = translateMessage("footer_description");
+});
+
+app.controller('decryptedCtrl', function($scope, $http, $location, Lang, CONSTANTS, TRANSLATION_ENGLISH, TRANSLATION_CRYPTO) {
+
+	const urlSearchParams = new URLSearchParams(window.location.search);
+	const params = Object.fromEntries(urlSearchParams.entries());
+	var language = Lang.getlang(CONSTANTS.languages.crypto);
+
+	$(function() {
+		$("#"+language).addClass("button-header-selected");
+	});
+
+	translateMessage =  function(msg) {
+        return eval("TRANSLATION_"+language.toUpperCase()+"."+msg);    
+    } 
+
+	$scope.changeLanguage = function(event) {
+	
+		$scope.selectedLanguage = event.srcElement.id;
+
+		if($scope.selectedLanguage != language){
+			Lang.setlang($scope.selectedLanguage);
+			window.location.href = CONSTANTS.env.url+"decryptfile";
+		}
+
+	};
+
+	$scope.indexTitle = translateMessage("index_title");
+	$scope.footerDescription = translateMessage("footer_description");
 });

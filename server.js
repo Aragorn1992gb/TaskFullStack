@@ -13,6 +13,8 @@ global.__basedir = __dirname;
  
 require('./app/routes/customer.route.js')(app);
 
+// const redis = require('redis');
+
 
 // Create a Server
 var server = app.listen(PORT, function () {
