@@ -1,0 +1,668 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    background: #000000;
+}
+
+.label-filename {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 70.45%;
+    bottom: 0%;
+
+    /* p_standard */
+
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.11vw;
+    line-height: 26px;
+    /* identical to box height, or 162% */
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.label-filename .with-file {
+    color: #161616;
+}
+
+.img-file {
+    position: absolute;
+    left: 8.33%;
+    right: 12.5%;
+    top: 4.17%;
+    bottom: 4.17%;
+
+    /* BACKGROUND IMAGE */
+
+/* background: #FFFFFF; */
+}
+
+.img-file-yes {
+    background-image: url("../images/file-black-small.png");
+}
+
+.file-small {
+    position: absolute;
+    background-position-y: 45.8%;
+    /* background-position-x: 3.02%; */
+    background-size: 15%;
+    width: 50%;
+    background-repeat: no-repeat;
+}
+
+.container-filepreview {
+    position: relative;
+    width: 552px;
+    height: 120px;
+}
+
+/* .container-child {
+    left: 2.13%;
+    right: 2.13%;
+    top: 3.7%;
+    bottom: 3.7%;
+
+    background: rgba(22, 22, 22, 0.16);
+    border: 1px dashed #363636;
+    box-sizing: border-box;
+}
+
+.container-child .container-large {
+    position: absolute;
+    left: 0.85%;
+    right: 0.85%;
+    top: 3.7%;
+    bottom: 3.7%;
+
+    background: rgba(22, 22, 22, 0.16);
+    border: 1px dashed #363636;
+    box-sizing: border-box;
+} */
+
+.container-listbox {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    background: #FFFFFF;
+    border-radius: 3px;
+}
+
+.container-orange-base-big {
+    height: 21.4%;
+    width: 65%;
+    top: 38.6%;
+    right: -17.5%;
+
+    position: relative;
+}
+
+.container-orange-big {
+    height: 21.4%;
+    width: 65%;
+    top: 38.6%;
+    right: 17.5%;
+
+    position: absolute;
+    background-color: #FFA047;
+}
+
+.container-orange-big-inside {
+    position: absolute;
+    left: 0.85%;
+    right: 0.85%;
+    top: 3.7%;
+    bottom: 3.7%;
+
+    background: rgba(22, 22, 22, 0.16);
+    border: 1px dashed #363636;
+    box-sizing: border-box;
+
+}
+
+.container-big-info {
+    position: absolute;
+    left: 20.53%;
+    right: 20.27%;
+    top: 66.67%;
+    bottom: 22.22%;
+    
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.11vw;
+    line-height: 162%;
+    
+    display: flex;
+    align-items: center;
+    text-align: center;
+    
+    color: #161616;
+
+    display: inline-block;
+    
+}
+
+.listbox-container {
+    height: 24%;
+    width: 28.7%;
+    top: 32%;
+    left: 35.65%;
+    
+    position: relative;
+    background: #FFFFFF;
+    border-radius: 3px;
+}
+
+.listbox-center-part {
+    position: absolute;
+    /* left: 28.03%; */
+    left: 23.03%;
+    right: 18.18%;
+    top: 0%;
+    bottom: 0%;
+
+    /* p_standard */
+
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.11vw;
+    line-height: 162%;
+    /* or 162% */
+
+    display: flex;
+    align-items: center;
+
+    color: #292929;
+
+    border-right: 1px solid #98A0A6;
+}
+
+.listbox-arrow-part {
+    position: absolute;
+    left: 88%;
+    top: 42.89%;
+    bottom: 33.33%;
+    background-size: 4.63%;
+    width: 100%;
+    background-repeat: no-repeat;
+
+    background-image: url("../images/arrow.png");
+}
+
+.cubbit-header {
+    position: absolute;
+    height: 72px;
+    left: 0%;
+    right: 0%;
+    top: 0px;
+
+    background: #292929;
+}
+
+.cubbit-logo {
+    position: absolute;
+    width: 119px;
+    height: 46px;
+    left: 23px;
+    top: 13px;
+
+    background-repeat: no-repeat;
+
+    background-image: url("../images/logo.png");
+}
+
+.application-title {
+    position: absolute;
+    left: 7.84%;
+    top: 21.42%;
+    width: 84.26%;
+    margin: 0;
+
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 2.5vw;
+    line-height: 130%;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    display: inline-block;
+
+    color: #FFFFFF;
+}
+
+.application-body {
+    position: absolute;
+    left: 30.83%;
+    top: 28.47%;
+    width: 38.3%;
+
+
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.11vw;
+    line-height: 162%;
+
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.input-file {
+    /* top: -24%; */
+    width: 100%;
+    z-index: 999999;
+    height: 100%;
+    position: relative;
+    opacity: 0%;
+}
+
+.button-blue {
+    position: absolute;
+
+    height: 4.76%;
+    width: 11.67%;
+    
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.11vw;
+    line-height: 162%;
+    
+    display: flex;
+    align-items: center;
+    text-align: center;
+    display: inline-block;
+    
+    background: #009EFF;
+    border-radius: 3px;
+    color: #FFFFFF;
+
+    padding: 0;
+    white-space: nowrap;
+}
+
+.file-upload {
+    top: 64.78%;
+    left: 37.5%;
+}
+
+.file-download {
+    top: 64.78%;
+    left: 50.83%;
+}
+
+.buttons-header {
+    position: absolute;
+    top: 22.22%;
+    left: 72%;
+    height: 55.56%;
+    width: 16.6%;
+
+    box-shadow: 0px 0px 0px 2px #009eff inset;
+    border-radius: 2px;
+}
+
+.half {
+    height: 100%;
+    width: 50%;
+    float: left;
+
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 0.97vw;
+    line-height: 187.5%;
+
+    /* display: flex; */
+    align-items: center;
+    text-align: center;
+    display: grid;
+
+    color: #FFFFFF;
+}
+
+.button-header-selected {
+    background: #009EFF;
+    border-radius: 2px;
+}
+
+.footer-element {
+    position: absolute;
+    left: 15.28%;
+    right: 17.5%;
+    top: 88.59%;
+    bottom: 2.38%;
+    width: 67.22%;
+    height: 8.75%;
+}
+
+
+.footer-text {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+    color: #98A0A6;
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 0.97vw;
+    line-height: 162%;
+    align-items: flex-end;
+    text-align: center;
+    display: inline-block;
+}
+
+.uploaded {
+    position: absolute;
+    bottom: 4.17%;
+}
+
+.uploaded-ico {
+    left: 48.5%;
+    right: 12.7%;
+    top: 29%;
+    background-size: 7%;
+    background-repeat: no-repeat;
+    background-image: url(../images/file-black.png);
+}
+
+.uploaded-ico-white {
+    left: 46.55%;
+    right: 12.7%;
+    top: 15%;
+    background-size: 4.3vh;
+    /* background-size: 18.3%; */
+    /* background-size: 7%; */
+    background-repeat: no-repeat;
+    background-image: url(../images/file-white.png);
+}
+
+.uploaded-label {
+    width: 100%;
+    text-align: center;
+    top: 59%;
+}
+
+.uploaded-label-white {
+    width: 100%;
+    text-align: center;
+    top: 70.45%;
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.1vh;
+    line-height: 162%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    display: grid;
+}
+
+.hidden {
+    display: none;
+}
+
+.container-white-file {
+    position: absolute;
+    top: 28.57%;
+    left: 30.83%;
+    height: 11.90%;
+    width: 38.33%;
+
+    border: 1px solid #363636;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+    
+.description-updated-file {
+    position: absolute;
+    width: 100%;
+    left: 0.14%;
+    right: 12.7%;
+}
+
+.your-file-id {
+    top: 44.35%;
+    /* bottom: 53.08%; */
+}
+
+.your-encryption-key {
+    top: 58.63%;
+    /* bottom: 53.08%; */
+}
+
+.label-description-from-result {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.11vw;
+    line-height: 162%;
+
+    position: relative;
+    text-align: center;
+    display: block;
+    align-items: center;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.description-from-result-container {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 165%;
+    bottom: 0%;
+    background: #292929;
+    border: 1px solid #363636;
+    box-sizing: border-box;
+    border-radius: 3px;
+    height: 184.62%;
+
+    border-radius: 3px;
+    width: 38.33%;
+    margin: auto;
+    margin-top: 0;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.d-blue-button {
+    
+    position: absolute;
+    top: 0%;
+    bottom: 0%;
+
+    background: #009EFF;
+    border-radius: 3px;
+
+    width: 21.01%;
+    height: 75%;
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    right: 1.40%;
+
+    cursor: pointer;
+
+    float: right;
+    border: 0;
+}
+
+.p-blue-button {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.59vh;
+    line-height: 162%;
+
+    top: 10%;
+    position: relative;
+
+    display: block;
+    align-items: center;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.p-text-description-updated-file {
+    overflow: hidden;
+
+    position: absolute;
+    left: 5.8%;
+    right: 27.9%;
+    top: 0%;
+    bottom: 0%;
+    margin: 0;
+
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 0.97vw;
+    line-height: 162%;
+
+    display: flex;
+    align-items: center;
+
+    color: #FFFFFF;
+}
+
+.insert-uuid {
+    overflow: hidden;
+    position: absolute;
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 0.97vw;
+    line-height: 162%;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+}
+
+.p-yellow-button {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.59vh;
+    line-height: 162%;
+    text-align: center;
+    color: #FFFFFF;
+    top: 503%;
+}
+
+.d-yellow-button {
+    position: absolute; 
+    background: #FFA047;
+    border-radius: 3px;
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    cursor: pointer;
+    float: right;
+    border: 0;
+    left: 42.5%;
+    width: 15%;
+    height: 184.62%;
+}
+
+.label-description-result-encrypted {
+    float: left;
+    width: 40.49%;
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.11vw;
+    line-height: 162%;
+    position: relative;
+    text-align: center;
+    display: block;
+    align-items: center;
+    text-align: right;
+    color: #FFFFFF;
+}
+
+.description-from-result-container-encrypted {
+    position: absolute;
+    right: 36.39%;
+    bottom: 0%;
+    background: #292929;
+    border: 1px solid #363636;
+    box-sizing: border-box;
+    border-radius: 3px;
+    height: 115.38%;
+    border-radius: 3px;
+    width: 22.22%;
+    margin: auto;
+    margin-top: 0;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.p-text-description-updated-file {
+    overflow: hidden;
+
+    position: absolute;
+    left: 5.8%;
+    right: 27.9%;
+    top: 0%;
+    bottom: 0%;
+    margin: 0;
+    width: 100%;
+
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 0.97vw;
+    line-height: 162%;
+
+    display: flex;
+    align-items: center;
+
+    color: #FFFFFF;
+}
+
+.encrypted-file-id {
+    top: 36.90%;
+}
+
+.encrypted-file-name {
+    top: 40.18%;
+}
+
+.encrypted-file-size {
+    top: 43.85%;
+}
+
+.encrypted-file-mime {
+    top: 47.52%;
+}
+
+.insert-your-encryption-key {
+    top: 56.65%;
+}
+
+.width-insert-encryption-key {
+    width: 28.40%;
+}

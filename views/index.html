@@ -1,58 +1,99 @@
 <!DOCTYPE HTML>
  
 <html>
-<head>
-	  <title>AngularJS + Bootstrap Table + NodeJS/Express RestAPIs</title>
-	  <meta charset="utf-8" />
-	  <meta name="viewport" content="width=device-width, initial-scale=1" />
-	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-	  <script src="/static/js/angularJsApp.js"></script>
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-</head>
- 
-<body>
-<div class="container" ng-app="app" ng-controller="jsaLoadCustomers">
-	<h3>Customers List:</h3>
-	<button ng-click="submitForm()">
-		Clicca
-	</button>
-	<button ng-click="decryptFile()">
-		Decrypt
-	</button>
-	<button ng-click="downloadFile()">
-		Download
-	</button>
+	<head>
+		<title>Upload and Encrypt</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script src="/static/js/angularJsApp.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+		<link href="static/css/main.css" rel="stylesheet">
+		<script src="/static/js/translations/translations_english.js"></script>
+		<script src="/static/js/translations/translations_crypto.js"></script>
+		
+		<!-- <script> 
+			$(function(){
+			  $("#headerContent").load("./header.html"); 
+			});
+		</script> -->
+	</head>
+	
+	<body style="height: 100%" ng-app="app" ng-controller="jsaLoadCustomers">
+		<header>
+			<div class="cubbit-header">
+				<div class="cubbit-logo"></div>
+				<div class="buttons-header">
+					<div id="english" class="half" ng-click="changeLanguage($event)">Ecnrypted</div>
+					<div id="crypto" class="half" ng-click="changeLanguage($event)">b-&+(2'</div>
+				</div>
+			</div>
+		</header>
+		<div>
+			<h2 class="application-title">
+				{{ indexTitle }}
+			</h2>
+			<p class="application-body">
+				{{ indexDescription }}
+			</p>
+			<div class="container-orange-big">
+				<div class="container-orange-big-inside"></div>
+				<label class="container-big-info" id="biginfo">or drop files here</label>
+				<div id=file class="listbox-container">
+					<div class="img-file img-file-yes file-small"></div>
+					<div class="listbox-center-part">{{ listboxTitle }}</div>
+					<div class="listbox-arrow-part"></div>
+				</div>
+				<div class="uploaded uploaded-ico hidden" id="uploadedIco"></div>
+				<div class="uploaded uploaded-label hidden" id="uploadedLabel">{{uploadedLabel}}</div>
+				
+				<input type="file" name="file" select-ng-files class="input-file" id="inputfile" ng-model="inputfile" onchange='openFile(event)'>
+			</div>
 
-	UUID: {{ fileInsertedInfo.uuid }}
-	KEY: {{ fileInsertedInfo.key }}
+			<button ng-click="submitForm()" class="button-blue file-upload">
+				Encrypt and upload
+			</button>
+			<button ng-click="decryptFile()" class="button-blue file-download">
+				Download and decrypt
+			</button>
+		</div>
 
-	-- DECRYPTED FILE --
-	<br>
-	UUID: {{ decryptedFileObj.uuid }}
-	NAME: {{ decryptedFileObj.name }}
-	SIZE: {{ decryptedFileObj.size }}
-	MIME: {{ decryptedFileObj.mime }}
+		<footer>
+			<div class="footer-element">
+				<div class="footer-text">
+					{{footerDescription}}
+				</div>
+			</div>
+		</footer>
 
-	<input type='file' accept='image/*' onchange='openFile(event)'><br>
-	<img id='output'>
-    <div id="customerlist" class="row col-md-7 table-responsive">
-    	<table class="table table-bordered table-hover">
-    		<tr>
-    			<th>No</th>
-   				<th>Name</th>
-   				<th>Age</th>
-   				<th>Street</th>
-   				<th>PostCode</th>
- 			</tr>
-  			<tr ng-repeat="cust in customers | orderBy : 'name'" ng-class-even="'info'" ng-class-odd="'success'">
-  				<td>{{$index + 1 }}</td>
-    			<td>{{cust.name | uppercase}}</td>
-    			<td>{{cust.age}}</td>
-    			<td>{{cust.address.street}}</td>
-    			<td>{{cust.address.postcode}}</td>
-  			</tr>
-		</table>
-    </div>
-</div>
-</body>
+	
+		<!-- </div> -->
+
+		<!-- <div  ng-app="app" ng-controller="jsaLoadCustomers">
+			<h3>Customers List:</h3>
+			<button ng-click="submitForm()">
+				Clicca
+			</button>
+			<button ng-click="decryptFile()">
+				Decrypt
+			</button>
+			<button ng-click="downloadFile()">
+				Download
+			</button>
+
+			UUID: {{ fileInsertedInfo.uuid }}
+			KEY: {{ fileInsertedInfo.key }}
+
+			-- DECRYPTED FILE --
+			<br>
+			UUID: {{ decryptedFileObj.uuid }}
+			NAME: {{ decryptedFileObj.name }}
+			SIZE: {{ decryptedFileObj.size }}
+			MIME: {{ decryptedFileObj.mime }}
+
+			<input type='file' accept='image/*' onchange='openFile(event)'><br>
+			<img id='output'>
+		</div> -->
+	</body>
 </html>
