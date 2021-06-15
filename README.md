@@ -29,3 +29,4 @@ Docker compose services:
 - Mysql db
 - Redis
 
+ps: if you want to see the loading square, import a file bigger than 1 MB (in order to take more time to manage the request)
