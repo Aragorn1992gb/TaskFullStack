@@ -46,6 +46,7 @@ exports.decryptFileByUUID = (req, res, next) => {
     }else{
         db.query("SELECT * FROM files WHERE uuid = '" + uuid +"'", (err, rows, fields) => {
             if(err){
+                res.status(400);
                 res.send('Query error: ' + err.sqlMessage);
             }else{
                 var decryptedObj = {
@@ -55,6 +56,7 @@ exports.decryptFileByUUID = (req, res, next) => {
                     mime: rows[0].mime,
                     payload: aes256Decrypt(key, rows[0].payload)
                 }
+                res.status(200);
                 res.json(decryptedObj);
             }
         }); 
@@ -69,7 +71,7 @@ exports.insertFile = (req, res, next) => {
     var query = "INSERT INTO files VALUES('"+uuid+"', '"+name+"', "+req.body.size+", '"+req.body.mime+"', '"+encPayload.encryptedPlainText+"');";
     db.query(query, function(err, row){
         if(err){
-            res.status(200);
+            res.status(400);
             res.send('Query error: ' + err.sqlMessage + "query: " + query);
         }else{
             var info = {
@@ -77,21 +79,21 @@ exports.insertFile = (req, res, next) => {
                 key: encPayload.key,
                 name: name
             }
+            res.status(200);
             res.json(info);
         }
     });
 };
 
 exports.selectByUUID = (req, res, next) => {
-    console.log("entrato", req.url);
     let params = (new URL("http://localhost:8080/"+req.url)).searchParams;
     var uuid = params.get('uuid');
-    console.log(uuid);
     if(!uuid){
         res.send('Parameter error: invalid parameter');
     }else{
         db.query("SELECT * FROM files WHERE uuid = '" + uuid +"'", (err, rows, fields) => {
             if(err){
+                res.status(400);
                 res.send('Query error: ' + err.sqlMessage);
             }else{
                 if(rows.length > 0){
@@ -101,9 +103,12 @@ exports.selectByUUID = (req, res, next) => {
                         size: rows[0].size,
                         mime: rows[0].mime
                     }
+                    res.status(200);
                     res.json(encryptedObj);
                 } else {
                     console.log("Noone file find for that UUID");
+                    res.status(204);
+                    res.send('Noone file find for that UUID');
                 }
             }
         }); 

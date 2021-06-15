@@ -78,6 +78,8 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location, Lang, CONS
 	
 
 	$scope.submitForm = function() {
+		$("#hideable").removeClass("hidden").addClass("hidden");
+		$("#loading").removeClass("hidden");
 		$http({
 			method: 'POST',
 			url: '/insert/',
@@ -85,13 +87,19 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location, Lang, CONS
 			data: $scope.fileObj
 		}).then(
 			function (response) {
-				$scope.fileInsertedInfo.uuid = response.data.uuid;
-				$scope.fileInsertedInfo.key = response.data.key;
-				$scope.fileInsertedInfo.name = response.data.name;
-				console.log("SUCCESS"+JSON.stringify(response));
 				$scope.goToEncryptedPage($scope.fileInsertedInfo);
+				if(response.status == 200){
+					$scope.fileInsertedInfo.uuid = response.data.uuid;
+					$scope.fileInsertedInfo.key = response.data.key;
+					$scope.fileInsertedInfo.name = response.data.name;
+					console.log("SUCCESS");
+				} else {
+					console.log("ERROR ",response.status);
+				}
 			}, function (error) {
-				console.log("ERROR");
+				$("#loading").removeClass("hidden").addClass("hidden");
+				$("#hideable").removeClass("hidden");
+				console.log("ERROR ",error.data);
 		});
 	};
 
@@ -104,9 +112,17 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location, Lang, CONS
 			data: info
 		}).then(
 			function (response) {
-				console.log("ok");
-				window.location.href = CONSTANTS.env.url+"encrypted";
+				$("#loading").removeClass("hidden").addClass("hidden");
+				$("#hideable").removeClass("hidden");
+				if(response.status == 200){
+					console.log("SUCCESS");
+					window.location.href = CONSTANTS.env.url+"encrypted";
+				} else {
+					console.log("ERROR"+response.status);
+				}		
 			}, function (error) {
+				$("#loading").removeClass("hidden").addClass("hidden");
+				$("#hideable").removeClass("hidden");
 				console.log("ERROR"+error.data);
 		});
 	};
@@ -120,7 +136,6 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location, Lang, CONS
 		a.download = $scope.decryptedFileObj.fileName;
 		a.href = $scope.decryptedFileObj.payload;
 		a.click();
-		// window.location.href = 'data:'+$scope.decryptedFileObj.mime+'base64,' + $scope.decryptedFileObj.payload;
 	};
 
 	openFile = function(event) {
@@ -132,7 +147,7 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location, Lang, CONS
 		  $scope.fileObj.name = input.files[0].name;
 		  $scope.fileObj.size = input.files[0].size;
 		  $scope.fileObj.mime = input.files[0].type+";";
-		  $scope.fileObj.payload = dataURL; // here the bytearray image.It can be shown using output.src
+		  $scope.fileObj.payload = dataURL;
 		  console.log("File: ",$scope.fileObj);
 		};
 		reader.readAsDataURL(input.files[0]);
@@ -159,12 +174,10 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location, Lang, CONS
 	$scope.footerDescription = translateMessage("footer_description");
 	$scope.uploadedLabel = "";
 
-	// $scope.inputfile = $("#inputfile").val();
 
 	$scope.$watch('inputfile', function () {
 		if($scope.inputfile[0]){
 			$scope.uploadedLabel = $scope.inputfile[0].name;
-			// $("#uploadedLabel").text($scope.inputfile[0].name);
 			$("#file").addClass("hidden");
 			$("#biginfo").addClass("hidden");
 			$("#uploadedIco").removeClass("hidden");
@@ -174,10 +187,6 @@ app.controller('jsaLoadCustomers', function($scope, $http, $location, Lang, CONS
 
 
 });
-
-
-
-
 
 app.controller('encryptedCtrl', function($scope, $http, $location, Lang, CONSTANTS, TRANSLATION_ENGLISH, TRANSLATION_CRYPTO) {
 
@@ -194,11 +203,15 @@ app.controller('encryptedCtrl', function($scope, $http, $location, Lang, CONSTAN
 	});
 
 	$scope.getFileInfo = function() {
+		$("#hideable").removeClass("hidden").addClass("hidden");
+		$("#loading").removeClass("hidden");
 		$http({
 			method: 'GET',
 			url: '/getFileInfo/'
 		}).then(
 			function (response) {
+				$("#loading").removeClass("hidden").addClass("hidden");
+				$("#hideable").removeClass("hidden");
 				if(response.data.uuid && response.data.key && response.data.name) {
 					$scope.fileInsertedInfo.uuid = response.data.uuid;
 					$scope.fileInsertedInfo.key = response.data.key;
@@ -210,6 +223,8 @@ app.controller('encryptedCtrl', function($scope, $http, $location, Lang, CONSTAN
 				}
 				
 			}, function (error) {
+				$("#loading").removeClass("hidden").addClass("hidden");
+				$("#hideable").removeClass("hidden");
 				console.log("ERROR"+error.data);
 		});
 	};
@@ -252,19 +267,6 @@ app.controller('decryptCtrl', function($scope, $http, $location, Lang, CONSTANTS
 
 	$scope.submitForm = function() {
 		window.location.href = CONSTANTS.env.url+"searchbyuuid?uuid="+$("#uuid").val();
-		// $http({
-		// 	method: 'GET',
-		// 	url: '/getbyuuid/?uuid='+$("#uuid").val()
-		// }).then(
-		// 	function (response) {
-		// 		$scope.fileInfo.uuid = response.data.uuid;
-		// 		$scope.fileInfo.name = response.data.name;
-		// 		$scope.fileInfo.size = response.data.size;
-		// 		$scope.fileInfo.mime = response.data.mime;
-		// 		console.log("SUCCESS");
-		// 	}, function (error) {
-		// 		console.log("ERROR");
-		// });
 	};
 
 	$(function() {
@@ -318,22 +320,35 @@ app.controller('decryptingCtrl', function($scope, $http, $location, Lang, CONSTA
 
 
 	$scope.getInfos = function() {
+		$("#hideable").removeClass("hidden").addClass("hidden");
+		$("#loading").removeClass("hidden");
 		$http({
 			method: 'GET',
 			url: '/getbyuuid/?uuid='+params.uuid
 		}).then(
 			function (response) {
-				$scope.fileInfo.uuid = response.data.uuid;
-				$scope.fileInfo.name = response.data.fileName;
-				$scope.fileInfo.size = response.data.size;
-				$scope.fileInfo.mime = response.data.mime;
-				console.log("SUCCESS");
+				$("#loading").removeClass("hidden").addClass("hidden");
+				$("#hideable").removeClass("hidden");
+				if(response.status == 200){
+					$scope.fileInfo.uuid = response.data.uuid;
+					$scope.fileInfo.name = response.data.fileName;
+					$scope.fileInfo.size = response.data.size;
+					$scope.fileInfo.mime = response.data.mime;
+					console.log("SUCCESS");
+				} else {
+					console.log("ERROR: ",response.status);
+					window.location.href = CONSTANTS.env.url;
+				}
 			}, function (error) {
-				console.log("ERROR");
+				$("#loading").removeClass("hidden").addClass("hidden");
+				$("#hideable").removeClass("hidden");
+				console.log("ERROR ",error.data);
 		});
 	};
 
 	$scope.decryptAndDownload = function() {
+		$("#hideable").removeClass("hidden").addClass("hidden");
+		$("#loading").removeClass("hidden");
 		$scope.paramsForDecrypt.uuid = $scope.fileInfo.uuid;
 		$scope.paramsForDecrypt.key = $("#encrkey").val();
 		$http({
@@ -343,11 +358,19 @@ app.controller('decryptingCtrl', function($scope, $http, $location, Lang, CONSTA
 			data: $scope.paramsForDecrypt
 		}).then(
 			function (response) {
-				$scope.decryptedFileObj = response.data;
-				console.log("SUCCESS"+response.data);
-				$scope.downloadFile();
+				$("#loading").removeClass("hidden").addClass("hidden");
+				$("#hideable").removeClass("hidden");
+				if(response.status == 200){
+					$scope.decryptedFileObj = response.data;
+					console.log("SUCCESS"+response.data);
+					$scope.downloadFile();
+				} else {
+					console.log("ERROR: ",response.status);
+				}	
 			}, function (error) {
 				console.log("ERROR"+error.data);
+				$("#loading").removeClass("hidden").addClass("hidden");
+				$("#hideable").removeClass("hidden");
 		});
 	};
 
@@ -356,7 +379,6 @@ app.controller('decryptingCtrl', function($scope, $http, $location, Lang, CONSTA
 		a.download = $scope.decryptedFileObj.fileName;
 		a.href = $scope.decryptedFileObj.payload;
 		a.click();
-		// window.location.href = 'data:'+$scope.decryptedFileObj.mime+'base64,' + $scope.decryptedFileObj.payload;
 	};
 
 	$scope.getInfos();

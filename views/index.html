@@ -34,29 +34,32 @@
 			<h2 class="application-title">
 				{{ indexTitle }}
 			</h2>
-			<p class="application-body">
-				{{ indexDescription }}
-			</p>
-			<div class="container-orange-big">
-				<div class="container-orange-big-inside"></div>
-				<label class="container-big-info" id="biginfo">or drop files here</label>
-				<div id=file class="listbox-container">
-					<div class="img-file img-file-yes file-small"></div>
-					<div class="listbox-center-part">{{ listboxTitle }}</div>
-					<div class="listbox-arrow-part"></div>
+			<div id="hideable">
+				<p class="application-body">
+					{{ indexDescription }}
+				</p>
+				<div class="container-orange-big">
+					<div class="container-orange-big-inside"></div>
+					<label class="container-big-info" id="biginfo">or drop files here</label>
+					<div id=file class="listbox-container">
+						<div class="img-file img-file-yes file-small"></div>
+						<div class="listbox-center-part">{{ listboxTitle }}</div>
+						<div class="listbox-arrow-part"></div>
+					</div>
+					<div class="uploaded uploaded-ico hidden" id="uploadedIco"></div>
+					<div class="uploaded uploaded-label hidden" id="uploadedLabel">{{uploadedLabel}}</div>
+					
+					<input type="file" name="file" select-ng-files class="input-file" id="inputfile" ng-model="inputfile" onchange='openFile(event)'>
 				</div>
-				<div class="uploaded uploaded-ico hidden" id="uploadedIco"></div>
-				<div class="uploaded uploaded-label hidden" id="uploadedLabel">{{uploadedLabel}}</div>
-				
-				<input type="file" name="file" select-ng-files class="input-file" id="inputfile" ng-model="inputfile" onchange='openFile(event)'>
-			</div>
 
-			<button ng-click="submitForm()" class="button-blue file-upload">
-				Encrypt and upload
-			</button>
-			<button ng-click="decryptFile()" class="button-blue file-download">
-				Download and decrypt
-			</button>
+				<button ng-click="submitForm()" class="button-blue file-upload">
+					Encrypt and upload
+				</button>
+				<button ng-click="decryptFile()" class="button-blue file-download">
+					Download and decrypt
+				</button>
+			</div>
+			<div id="loading" class="loading hidden"></div>
 		</div>
 
 		<footer>

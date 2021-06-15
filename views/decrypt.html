@@ -24,24 +24,27 @@
 				</div>
 			</div>
 		</header>
-		<div>
-			<h2 class="application-title">
-				{{ indexTitle }}
-			</h2>
-                <div class="description-updated-file your-file-id">
-                    <!-- <form action="/decrypted" method="get" id="searchForm"> -->
-                        <div class="label-description-from-result">
-                            Insert your file id:
-                        </div>
-                        <input type="text" id="uuid" name="uuid" class="description-from-result-container insert-uuid"/>
-                    <!-- </form> -->
+            <div>
+                <h2 class="application-title">
+                    {{ indexTitle }}
+                </h2>
+                <div id="hideable"></div>
+                    <div class="description-updated-file your-file-id">
+                        <!-- <form action="/decrypted" method="get" id="searchForm"> -->
+                            <div class="label-description-from-result">
+                                Insert your file id:
+                            </div>
+                            <input type="text" id="uuid" name="uuid" class="description-from-result-container container-insert insert-uuid"/>
+                        <!-- </form> -->
 
-                    <!-- <button type="submit" form="searchForm" class="d-yellow-button p-yellow-button"> -->
-                    <button type="submit" form="searchForm" class="d-yellow-button p-yellow-button" ng-click="submitForm()">
-                        Get file
-                    </button>
-                </div>
-		</div>
+                        <!-- <button type="submit" form="searchForm" class="d-yellow-button p-yellow-button"> -->
+                        <button type="submit" form="searchForm" class="d-yellow-button p-yellow-button" ng-click="submitForm()">
+                            Get file
+                        </button>
+                    </div>
+            </div>
+            <div id="loading" class="loading hidden"></div>
+        </div>
 
 		<footer>
 			<div class="footer-element">

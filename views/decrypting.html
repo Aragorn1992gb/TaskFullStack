@@ -24,73 +24,70 @@
 				</div>
 			</div>
 		</header>
-
-		{{fileInfo.uuid}}
-		{{fileInfo.name}}
-		{{fileInfo.size}}
-		{{fileInfo.mime}}
 		<div>
 			<h2 class="application-title">
 				{{ indexTitle }}
 			</h2>
-			<div class="description-updated-file encrypted-file-id">
-				<div class="label-description-result-encrypted">
-					File id:
+			<div id="hideable">
+				<div class="description-updated-file encrypted-file-id">
+					<div class="label-description-result-encrypted">
+						File id:
+					</div>
+					<div class="description-from-result-container-encrypted">
+						<p class="p-text-description-updated-file">
+							{{fileInfo.uuid}}
+						</p>
+					</div>
 				</div>
-				<div class="description-from-result-container-encrypted">
-					<p class="p-text-description-updated-file">
-						{{fileInfo.uuid}}
-					</p>
+
+				<div class="description-updated-file encrypted-file-name">
+					<div class="label-description-result-encrypted">
+						File name:
+					</div>
+					<div class="description-from-result-container-encrypted">
+						<p class="p-text-description-updated-file">
+							{{fileInfo.name}}
+						</p>
+					</div>
+				</div>
+
+				<div class="description-updated-file encrypted-file-size">
+					<div class="label-description-result-encrypted">
+						File size:
+					</div>
+					<div class="description-from-result-container-encrypted">
+						<p class="p-text-description-updated-file">
+							{{fileInfo.size}}
+						</p>
+					</div>
+				</div>
+
+				<div class="description-updated-file encrypted-file-mime">
+					<div class="label-description-result-encrypted">
+						File mime:
+					</div>
+					<div class="description-from-result-container-encrypted">
+						<p class="p-text-description-updated-file">
+							{{fileInfo.mime}}
+						</p>
+					</div>
+				</div>
+
+
+				<div class="description-updated-file insert-your-encryption-key">
+
+					<div class="label-description-from-result">
+						Insert your encryption key:
+					</div>
+
+					<input type="text" id="encrkey" name="encrkey" class="description-from-result-container insert-uuid width-insert-encryption-key"/>
+
+					<button type="submit" class="d-yellow-button p-yellow-button" ng-click="decryptAndDownload()">
+						Get file
+					</button>
 				</div>
 			</div>
-
-			<div class="description-updated-file encrypted-file-name">
-				<div class="label-description-result-encrypted">
-					File name:
-				</div>
-				<div class="description-from-result-container-encrypted">
-					<p class="p-text-description-updated-file">
-						{{fileInfo.name}}
-					</p>
-				</div>
-			</div>
-
-			<div class="description-updated-file encrypted-file-size">
-				<div class="label-description-result-encrypted">
-					File size:
-				</div>
-				<div class="description-from-result-container-encrypted">
-					<p class="p-text-description-updated-file">
-						{{fileInfo.size}}
-					</p>
-				</div>
-			</div>
-
-			<div class="description-updated-file encrypted-file-mime">
-				<div class="label-description-result-encrypted">
-					File mime:
-				</div>
-				<div class="description-from-result-container-encrypted">
-					<p class="p-text-description-updated-file">
-						{{fileInfo.mime}}
-					</p>
-				</div>
-			</div>
-
-
-			<div class="description-updated-file insert-your-encryption-key">
-
-				<div class="label-description-from-result">
-					Insert your encryption key:
-				</div>
-
-				<input type="text" id="encrkey" name="encrkey" class="description-from-result-container insert-uuid width-insert-encryption-key"/>
-
-				<button type="submit" class="d-yellow-button p-yellow-button" ng-click="decryptAndDownload()">
-					Get file
-				</button>
-			</div>
-
+			<div id="loading" class="loading hidden"></div>
 		</div>
 
 		<footer>
