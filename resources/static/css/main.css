@@ -485,6 +485,12 @@ html, body {
     text-overflow: ellipsis;
 }
 
+.container-insert {
+    width: 21.6%;
+    padding-left: 1.31%;
+    padding-right: 1.66%;
+}
+
 .d-blue-button {
     
     position: absolute;
@@ -629,7 +635,7 @@ html, body {
     top: 0%;
     bottom: 0%;
     margin: 0;
-    width: 100%;
+    width: 66.30%;
 
     font-family: Nunito;
     font-style: normal;
@@ -665,4 +671,23 @@ html, body {
 
 .width-insert-encryption-key {
     width: 28.40%;
+    padding-left: 1.60%;
+    padding-right: 1.60%;
 }
+
+.loading {
+    position: absolute;
+    top: 42.46%;
+    left: 47.22%;
+    height: 7.94%;
+    width: 5.56%;
+    animation: blinker 1s linear infinite;
+
+    background-image: url("../images/loading.png");
+}
+
+@keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }

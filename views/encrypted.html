@@ -28,43 +28,44 @@
 			<h2 class="application-title">
 				{{ indexTitle }}
 			</h2>
-			<div class="container-white-file">
-				<div class="uploaded uploaded-ico-white"></div>
-				<div class="uploaded uploaded-label-white">
-					{{ fileInsertedInfo.name }}
-				</div>
-			</div>
-			<div class="description-updated-file your-file-id">
-				<div class="label-description-from-result">
-					Your file id:
-				</div>
-				<div class="description-from-result-container">
-					<p class="p-text-description-updated-file">
-						{{ fileInsertedInfo.uuid }}
-					</p>
-					<input type="text" id="text-uuid" value="{{ fileInsertedInfo.uuid }}" style="opacity: 0;">
-					<button class="d-blue-button p-blue-button" ng-click="copyElement('text-uuid')">
-						Copy
-					</button>
-				</div>
-			</div>
-
-			<div  class="description-updated-file your-encryption-key">
-				<div class="label-description-from-result">
-					Your encryption key:
-				</div>
-				<div class="description-from-result-container">
-					<p class="p-text-description-updated-file">
-						{{ fileInsertedInfo.key }}
-					</p>
-					<input type="text" id="text-key" value="{{ fileInsertedInfo.key }}" style="opacity: 0;">
-					<button class="d-blue-button p-blue-button" ng-click="copyElement('text-key')">
-						Copy
-					</button>	
+			<div id="hideable">
+				<div class="container-white-file">
+					<div class="uploaded uploaded-ico-white"></div>
+					<div class="uploaded uploaded-label-white">
+						{{ fileInsertedInfo.name }}
 					</div>
 				</div>
-			</div>
+				<div class="description-updated-file your-file-id">
+					<div class="label-description-from-result">
+						Your file id:
+					</div>
+					<div class="description-from-result-container">
+						<p class="p-text-description-updated-file">
+							{{ fileInsertedInfo.uuid }}
+						</p>
+						<input type="text" id="text-uuid" value="{{ fileInsertedInfo.uuid }}" style="opacity: 0;">
+						<button class="d-blue-button p-blue-button" ng-click="copyElement('text-uuid')">
+							Copy
+						</button>
+					</div>
+				</div>
 
+				<div  class="description-updated-file your-encryption-key">
+					<div class="label-description-from-result">
+						Your encryption key:
+					</div>
+					<div class="description-from-result-container">
+						<p class="p-text-description-updated-file">
+							{{ fileInsertedInfo.key }}
+						</p>
+						<input type="text" id="text-key" value="{{ fileInsertedInfo.key }}" style="opacity: 0;">
+						<button class="d-blue-button p-blue-button" ng-click="copyElement('text-key')">
+							Copy
+						</button>	
+						</div>
+					</div>
+				</div>
+			<div id="loading" class="loading hidden"></div>
 		</div>
 
 		<footer>
